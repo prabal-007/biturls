@@ -7,25 +7,26 @@ const Shorten = () => {
   const [shortUrl, setShortUrl] = useState("")
   const [generated, setGenerated] = useState("")
 
-  const generate = () => {
+  const customString = () => {
+    const characters = "abcdefghijklmnopqrstuvwxyz123456789";
+    return Array.from({ length: 6 }, () =>
+      characters.charAt(Math.floor(Math.random() * characters.length))
+    ).join("");
+  };
+  
+  const generate = async () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    if(!shortUrl) {
-      let result  = "";
-      let characters = "abcdefghijklmnopqrstuvwxyz123456789"
-      let charLen = characters.length;
-      let i = 0;
-      while (i < 6) {
-        result += characters.charAt(Math.floor(Math.random() * charLen))
-        i++;
-      }
-      setShortUrl(result);
+    const customShortUrl = shortUrl || customString();
+    if (!shortUrl) {
+      customString();
+      setShortUrl(customShortUrl);
     }
 
     const raw = JSON.stringify({
       "url": url,
-      "shorturl": shortUrl
+      "shorturl": customShortUrl
     });
 
     const requestOptions = {
@@ -35,12 +36,12 @@ const Shorten = () => {
       redirect: "follow"
     };
 
-    fetch("http://localhost:3000/api/generate", requestOptions)
+    await fetch("http://localhost:3000/api/generate", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        setGenerated(`${process.env.NEXT_PUBLIC_HOST}/${customShortUrl}`)
         setUrl("")
         setShortUrl("")
-        setGenerated(`${process.env.NEXT_PUBLIC_HOST}/${shortUrl}`)
         console.log(result)
         alert(result.message)
       })
@@ -57,7 +58,7 @@ const Shorten = () => {
           placeholder='Enter your URL'
           className='border p-2 py-1 w-2/3 focus:outline-blue-300' />
         <input type="text"
-        value={shortUrl}
+          value={shortUrl}
           onChange={(e) => (setShortUrl(e.target.value))}
           placeholder='Enter your prefered short url text'
           className='border p-2 py-1 w-2/3 focus:outline-blue-300' />
@@ -65,7 +66,7 @@ const Shorten = () => {
       </div>
       {generated && <code>
         Short Link : <Link href={generated} target='__balnk' className='text-blue-700' >{generated}</Link>
-        </code>}
+      </code>}
     </div>
   )
 }
