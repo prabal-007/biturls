@@ -11,6 +11,18 @@ const Shorten = () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
+    if(!shortUrl) {
+      let result  = "";
+      let characters = "abcdefghijklmnopqrstuvwxyz123456789"
+      let charLen = characters.length;
+      let i = 0;
+      while (i < 6) {
+        result += characters.charAt(Math.floor(Math.random() * charLen))
+        i++;
+      }
+      setShortUrl(result);
+    }
+
     const raw = JSON.stringify({
       "url": url,
       "shorturl": shortUrl
