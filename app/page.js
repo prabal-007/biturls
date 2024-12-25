@@ -10,7 +10,7 @@ export default function Home() {
           <p className="p-5 pt-0 text-wrap text-center text-sm text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt qui fugiat libero quis, reiciendis vel quam, Lorem ipsum dolor sit amet. ab beatae sint ut natus. Sunt minima ad doloribus culpa?</p>
           <div className='flex px-2 justify-between items-center gap-2 font-bold text-sm'>
             <Link href='/generate'><button className='bg-red-500 px-3 py-1 rounded-lg hover:bg-red-400 '>Try Now</button></Link>
-            <Link href='/github'><button className='bg-red-500 px-3 py-1 rounded-lg hover:bg-red-400 '>GitHub</button></Link>
+            <Link href='https://github.com/prabal-007/biturls' target="__blank"><button className='bg-red-500 px-3 py-1 rounded-lg hover:bg-red-400 '>GitHub</button></Link>
             </div>
         </div>
         <div className="relative">
