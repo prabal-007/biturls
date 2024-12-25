@@ -13,8 +13,12 @@ const Shorten = () => {
       characters.charAt(Math.floor(Math.random() * characters.length))
     ).join("");
   };
-  
+
   const generate = async () => {
+    if (url === "") {
+      alert("Please enter a URL");
+      return
+    }
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -53,6 +57,7 @@ const Shorten = () => {
       <h1 className='text-3xl font-semibold'>Generate your short URLs</h1>
       <div className='flex flex-col justify-center items-center gap-2 w-full'>
         <input type="text"
+          required
           value={url}
           onChange={(e) => { setUrl(e.target.value) }}
           placeholder='Enter your URL'
