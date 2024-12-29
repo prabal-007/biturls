@@ -41,7 +41,7 @@ const Shorten = () => {
     };
 
     // await fetch("http://localhost:3000/api/generate", requestOptions)
-    await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/generate`, requestOptions)
+    await fetch("/api/generate", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setGenerated(`${process.env.NEXT_PUBLIC_HOST}/${customShortUrl}`)
